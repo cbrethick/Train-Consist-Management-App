@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class TrainManagementApp {
 
@@ -9,37 +6,34 @@ public class TrainManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // ---------- UC2 (Passenger Bogies) ----------
-        List<String> passengerBogies = new ArrayList<>();
+        // Create LinkedList for train consist
+        LinkedList<String> train = new LinkedList<>();
 
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Add bogies
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
 
-        System.out.println("\nPassenger bogies after addition:");
-        System.out.println(passengerBogies);
+        System.out.println("\nInitial Train Consist:");
+        System.out.println(train);
 
-        passengerBogies.remove("AC Chair");
+        // Insert Pantry Car at position 2
+        train.add(2, "Pantry Car");
 
-        System.out.println("\nAfter removing AC Chair:");
-        System.out.println(passengerBogies);
+        System.out.println("\nAfter adding Pantry Car at position 2:");
+        System.out.println(train);
 
-        boolean exists = passengerBogies.contains("Sleeper");
-        System.out.println("\nIs Sleeper present? " + exists);
+        // Remove first and last bogie
+        train.removeFirst();
+        train.removeLast();
 
-        // ---------- UC3 (Unique Bogie IDs using HashSet) ----------
-        Set<String> bogieIds = new HashSet<>();
+        System.out.println("\nAfter removing first and last bogie:");
+        System.out.println(train);
 
-        // Adding bogie IDs (with duplicates intentionally)
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
-
-        System.out.println("\nBogie IDs after adding (duplicates ignored):");
-        System.out.println(bogieIds);
-
-        System.out.println("\nTotal unique bogies: " + bogieIds.size());
+        // Final output
+        System.out.println("\nFinal Train Consist:");
+        System.out.println(train);
     }
 }
