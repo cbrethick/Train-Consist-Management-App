@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainManagementApp {
 
@@ -7,29 +7,19 @@ public class TrainManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Passenger Bogie List
-        List<String> passengerBogies = new ArrayList<>();
+        // Create HashMap for bogie → capacity
+        Map<String, Integer> bogieCapacity = new HashMap<>();
 
-        // ADD bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Add bogies with capacity
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 40);
 
-        System.out.println("\nPassenger bogies after addition:");
-        System.out.println(passengerBogies);
+        // Display bogie capacities
+        System.out.println("\nBogie Capacity Details:");
 
-        // REMOVE bogie
-        passengerBogies.remove("AC Chair");
-
-        System.out.println("\nAfter removing AC Chair:");
-        System.out.println(passengerBogies);
-
-        // CHECK existence
-        boolean exists = passengerBogies.contains("Sleeper");
-
-        System.out.println("\nIs Sleeper present? " + exists);
-
-        System.out.println("\nFinal passenger bogie list:");
-        System.out.println(passengerBogies);
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println(entry.getKey() + " → " + entry.getValue());
+        }
     }
 }
