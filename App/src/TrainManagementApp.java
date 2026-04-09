@@ -1,5 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TrainManagementApp {
 
@@ -7,29 +8,40 @@ public class TrainManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Passenger Bogie List
-        List<String> passengerBogies = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
-        // ADD bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Input
+        System.out.print("\nEnter Train ID: ");
+        String trainId = sc.nextLine();
 
-        System.out.println("\nPassenger bogies after addition:");
-        System.out.println(passengerBogies);
+        System.out.print("Enter Cargo Code: ");
+        String cargoCode = sc.nextLine();
 
-        // REMOVE bogie
-        passengerBogies.remove("AC Chair");
+        // Regex patterns
+        String trainRegex = "TRN-\\d{4}";
+        String cargoRegex = "PET-[A-Z]{2}";
 
-        System.out.println("\nAfter removing AC Chair:");
-        System.out.println(passengerBogies);
+        // Compile patterns
+        Pattern trainPattern = Pattern.compile(trainRegex);
+        Pattern cargoPattern = Pattern.compile(cargoRegex);
 
-        // CHECK existence
-        boolean exists = passengerBogies.contains("Sleeper");
+        // Create matchers
+        Matcher trainMatcher = trainPattern.matcher(trainId);
+        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
 
-        System.out.println("\nIs Sleeper present? " + exists);
+        // Validate
+        if (trainMatcher.matches()) {
+            System.out.println("\nTrain ID is VALID ✅");
+        } else {
+            System.out.println("\nTrain ID is INVALID ❌");
+        }
 
-        System.out.println("\nFinal passenger bogie list:");
-        System.out.println(passengerBogies);
+        if (cargoMatcher.matches()) {
+            System.out.println("Cargo Code is VALID ✅");
+        } else {
+            System.out.println("Cargo Code is INVALID ❌");
+        }
+
+        sc.close();
     }
 }
