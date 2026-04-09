@@ -1,6 +1,19 @@
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
+
+// Goods Bogie class
+class GoodsBogie {
+    String type;   // Cylindrical / Open / Box
+    String cargo;  // Petroleum / Coal / Grain
+
+    GoodsBogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
+    }
+
+    public String toString() {
+        return type + " → " + cargo;
+    }
+}
 
 public class TrainManagementApp {
 
@@ -8,40 +21,28 @@ public class TrainManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        Scanner sc = new Scanner(System.in);
+        // Create goods bogies list
+        List<GoodsBogie> goodsBogies = new ArrayList<>();
 
-        // Input
-        System.out.print("\nEnter Train ID: ");
-        String trainId = sc.nextLine();
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        goodsBogies.add(new GoodsBogie("Open", "Coal"));
+        goodsBogies.add(new GoodsBogie("Box", "Grain"));
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum")); // valid
 
-        System.out.print("Enter Cargo Code: ");
-        String cargoCode = sc.nextLine();
+        System.out.println("\nGoods Bogies:");
+        System.out.println(goodsBogies);
 
-        // Regex patterns
-        String trainRegex = "TRN-\\d{4}";
-        String cargoRegex = "PET-[A-Z]{2}";
+        // SAFETY CHECK using allMatch()
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b -> 
+                    !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum")
+                );
 
-        // Compile patterns
-        Pattern trainPattern = Pattern.compile(trainRegex);
-        Pattern cargoPattern = Pattern.compile(cargoRegex);
-
-        // Create matchers
-        Matcher trainMatcher = trainPattern.matcher(trainId);
-        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
-
-        // Validate
-        if (trainMatcher.matches()) {
-            System.out.println("\nTrain ID is VALID ✅");
+        // Display result
+        if (isSafe) {
+            System.out.println("\nTrain is SAFE ✅");
         } else {
-            System.out.println("\nTrain ID is INVALID ❌");
+            System.out.println("\nTrain is UNSAFE ❌");
         }
-
-        if (cargoMatcher.matches()) {
-            System.out.println("Cargo Code is VALID ✅");
-        } else {
-            System.out.println("Cargo Code is INVALID ❌");
-        }
-
-        sc.close();
     }
 }
